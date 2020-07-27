@@ -2,7 +2,7 @@ MetaTracker = {}
 MetaTracker.name = "MetaTracker"
 LSET = LibSets
 
-function MetaTracker.ToggleMarker( rowControl, slot )
+function MetaTracker:ToggleMarker( rowControl, slot )
 	local marker_control = Zos_Function()
 	local set_control = LSET:Function()
 
@@ -26,11 +26,7 @@ function MetaTracker.ToggleMarker( rowControl, slot )
 
 end
 
-local function OnAddOnLoaded( eventCode, addonName )
-	if (addonName ~= MetaTracker.name) then return end
-
-	EVENT_MANAGER:UnregisterForEvent(MetaTracker.name, EVENT_ADD_ON_LOADED)
-
+local function check_inventory()
 	local backpacks = {
 		ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
 		ZO_EnchantingTopLevelInventoryBackpack,
@@ -41,8 +37,16 @@ local function OnAddOnLoaded( eventCode, addonName )
 
 		backpacks[i].dataTypes[1].setupCallback = function( rowControl, slot )
 			oldCallback(rowControl, slot)
-			MetaTracker.ToggleMarker(rowControl, slot)
+			MetaTracker:ToggleMarker(rowControl, slot)
 		end
 	end
+end
+
+local function OnAddOnLoaded( eventCode, addonName )
+	if (addonName ~= MetaTracker.name) then return end
+
+	EVENT_MANAGER:UnregisterForEvent(MetaTracker.name, EVENT_ADD_ON_LOADED)
+    
+    check_inventory(
 end
 EVENT_MANAGER:RegisterForEvent(MetaTracker.name, EVENT_ADD_ON_LOADED, OnAddOnLoaded)
