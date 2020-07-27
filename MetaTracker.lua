@@ -1,15 +1,20 @@
 MetaTracker = {}
-MetaTracker.name = "MetaTracker",
+MetaTracker.name = "MetaTracker"
 LSET = LibSets
 
 function MetaTracker.ToggleMarker( rowControl, slot )
-	local isJunk = IsItemJunk(slot.bagId, slot.slotIndex)
-	local markerControl = rowControl:GetNamedChild(MetaTracker.name)
+	local marker_control = Zos_Function()
+	local set_control = LSET:Function()
 
-	if (not markerControl) then
-		-- Be lazy; do nothing if the item is not junk and no marker had been created
-		if (not isJunk) then return end
+	if set_control(set_name, set_trait) then
+        d("the item in a meta set item mark it")
+	else
+        -- could be ore, wood, event item, quest item
+        d("the item not a meta set item")
+        return
+    end
 
+	if marker_control then
 		-- Create and initialize the marker control
 		markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. MetaTracker.name, rowControl, CT_TEXTURE)
 		markerControl:SetTexture("/esoui/art/inventory/inventory_tabicon_junk_up.dds")
@@ -19,7 +24,6 @@ function MetaTracker.ToggleMarker( rowControl, slot )
 		markerControl:SetDrawTier(DT_HIGH)
 	end
 
-	markerControl:SetHidden(not isJunk)
 end
 
 local function OnAddOnLoaded( eventCode, addonName )
