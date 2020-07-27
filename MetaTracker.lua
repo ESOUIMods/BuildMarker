@@ -47,6 +47,6 @@ local function OnAddOnLoaded( eventCode, addonName )
 
 	EVENT_MANAGER:UnregisterForEvent(MetaTracker.name, EVENT_ADD_ON_LOADED)
     
-    check_inventory(
+    check_inventory()
 end
 EVENT_MANAGER:RegisterForEvent(MetaTracker.name, EVENT_ADD_ON_LOADED, OnAddOnLoaded)
