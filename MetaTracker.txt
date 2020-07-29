@@ -4,12 +4,13 @@
 ; other countries. All rights reserved.
 ; https://account.elderscrollsonline.com/add-on-terms
 
-## Title: Meta Tracker
+## Title: MetaTracker
 ## Description: Tracks prefered gear for builds
 ## Author: Sharlikran
 ## AddOnVersion: 100
 ## Version: 1.00
 ## APIVersion: 100031
 ## DependsOn: LibSets
+## OptionalDependsOn: LibDebugLogger>=196 DebugLogViewer
 
 MetaTracker.lua
