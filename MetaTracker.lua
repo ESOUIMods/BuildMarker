@@ -77,7 +77,7 @@ end
 
 function MetaTracker:ToggleMarker( rowControl, slot )
     local markerControl = rowControl:GetNamedChild(MetaTracker.name)
-    
+
     local item_link = GetItemLink(slot.bagId, slot.slotIndex)
     local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(item_link)
     if not hasSet then return end
@@ -89,13 +89,13 @@ function MetaTracker:ToggleMarker( rowControl, slot )
         MetaTracker.dm("Debug", rowControl:GetName() .. MetaTracker.name)
 		markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. MetaTracker.name, rowControl, CT_TEXTURE)
 		markerControl:SetTexture("/esoui/art/inventory/inventory_tabicon_junk_up.dds")
-		--markerControl:SetColor(0.9, 0.3, 0.2, 1)
-		--markerControl:SetDimensions(34, 34)
-		--markerControl:SetAnchor(LEFT, rowControl, LEFT)
-		--markerControl:SetDrawTier(DT_HIGH)
+		markerControl:SetColor(0.9, 0.3, 0.2, 1)
+		markerControl:SetDimensions(34, 34)
+		markerControl:SetAnchor(LEFT, rowControl, LEFT)
+		markerControl:SetDrawTier(DT_HIGH)
 	end
 
-	--markerControl:SetHidden(true)
+	markerControl:SetHidden(false)
 end
 
 local function check_inventory()
