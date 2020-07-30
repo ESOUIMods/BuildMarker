@@ -186,27 +186,27 @@ local function create_log(log_type, log_content)
 end
 
 local function emit_message(log_type, text)
-    if(text == "") then
+    if (text == "") then
         text = "[Empty String]"
     end
     create_log(log_type, text)
 end
 
 local function emit_table(log_type, t, indent, table_history)
-    indent          = indent or "."
-    table_history    = table_history or {}
+    indent = indent or "."
+    table_history = table_history or {}
 
     for k, v in pairs(t) do
         local vType = type(v)
 
-        emit_message(log_type, indent.."("..vType.."): "..tostring(k).." = "..tostring(v))
+        emit_message(log_type, indent .. "(" .. vType .. "): " .. tostring(k) .. " = " .. tostring(v))
 
-        if(vType == "table") then
-            if(table_history[v]) then
-                emit_message(log_type, indent.."Avoiding cycle on table...")
+        if (vType == "table") then
+            if (table_history[v]) then
+                emit_message(log_type, indent .. "Avoiding cycle on table...")
             else
                 table_history[v] = true
-                emit_table(log_type, v, indent.."  ", table_history)
+                emit_table(log_type, v, indent .. "  ", table_history)
             end
         end
     end
@@ -216,7 +216,7 @@ function BuildMarker.dm(log_type, ...)
     --if not show_log then return end
     for i = 1, select("#", ...) do
         local value = select(i, ...)
-        if(type(value) == "table") then
+        if (type(value) == "table") then
             emit_table(log_type, value)
         else
             emit_message(log_type, tostring(value))
@@ -224,7 +224,7 @@ function BuildMarker.dm(log_type, ...)
     end
 end
 
-function BuildMarker:ToggleMarker( rowControl, slot )
+function BuildMarker:ToggleMarker(rowControl, slot)
     local markerControl = rowControl:GetNamedChild(BuildMarker.name)
 
     local item_link = GetItemLink(slot.bagId, slot.slotIndex)
@@ -238,41 +238,40 @@ function BuildMarker:ToggleMarker( rowControl, slot )
 
     if (not markerControl) then
         if not isMeta then return end
-		-- Create and initialize the marker control
+        -- Create and initialize the marker control
         BuildMarker.dm("Debug", "Meta Set")
         BuildMarker.dm("Debug", rowControl:GetName() .. BuildMarker.name)
-		markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. BuildMarker.name, rowControl, CT_TEXTURE)
-		markerControl:SetTexture("/esoui/art/inventory/inventory_tabicon_junk_up.dds")
-		markerControl:SetColor(0.9, 0.3, 0.2, 1)
-		markerControl:SetDimensions(34, 34)
-		markerControl:SetAnchor(LEFT, rowControl, LEFT)
-		markerControl:SetDrawTier(DT_HIGH)
-	end
+        markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. BuildMarker.name, rowControl, CT_TEXTURE)
+        markerControl:SetTexture("/esoui/art/inventory/inventory_tabicon_junk_up.dds")
+        markerControl:SetColor(0.9, 0.3, 0.2, 1)
+        markerControl:SetDimensions(34, 34)
+        markerControl:SetAnchor(LEFT, rowControl, LEFT)
+        markerControl:SetDrawTier(DT_HIGH)
+    end
 
-	markerControl:SetHidden(not isMeta)
+    markerControl:SetHidden(not isMeta)
 end
 
 local function check_inventory()
     BuildMarker.dm("Debug", "check_inventory")
-	for _,v in pairs(PLAYER_INVENTORY.inventories) do
+    for _, v in pairs(PLAYER_INVENTORY.inventories) do
         local listView = v.listView
         if (listView and listView.dataTypes and listView.dataTypes[1]) then
             local hookedFunctions = listView.dataTypes[1].setupCallback
 
-            listView.dataTypes[1].setupCallback =
-            function( rowControl, slot )
+            listView.dataTypes[1].setupCallback = function(rowControl, slot)
                 hookedFunctions(rowControl, slot)
                 BuildMarker:ToggleMarker(rowControl, slot)
             end
         end
-	end
+    end
 end
 
-local function OnAddOnLoaded( eventCode, addonName )
-	if (addonName ~= BuildMarker.name) then return end
+local function OnAddOnLoaded(eventCode, addonName)
+    if (addonName ~= BuildMarker.name) then return end
 
-	check_inventory()
+    check_inventory()
 
-	EVENT_MANAGER:UnregisterForEvent(BuildMarker.name, EVENT_ADD_ON_LOADED)
+    EVENT_MANAGER:UnregisterForEvent(BuildMarker.name, EVENT_ADD_ON_LOADED)
 end
 EVENT_MANAGER:RegisterForEvent(BuildMarker.name, EVENT_ADD_ON_LOADED, OnAddOnLoaded)
