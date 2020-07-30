@@ -4,7 +4,7 @@
 ; other countries. All rights reserved.
 ; https://account.elderscrollsonline.com/add-on-terms
 
-## Title: MetaTracker
+## Title: BuildMarker
 ## Description: Tracks prefered gear for builds
 ## Author: Sharlikran
 ## AddOnVersion: 100
@@ -13,4 +13,4 @@
 ## DependsOn: LibSets
 ## OptionalDependsOn: LibDebugLogger>=196 DebugLogViewer
 
-MetaTracker.lua
+BuildMarker.lua
