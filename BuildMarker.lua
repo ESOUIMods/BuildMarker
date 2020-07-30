@@ -167,6 +167,10 @@ local function is_meta_set(set_name, set_id)
         -- Misc
         "Agility",
         "Willpower",
+        -- For Fun
+        "Mad Tinkerer",
+        "Unfathomable Darkness",
+        "Flame Blossom",
     }
     if is_in(set_name, meta_sets) then return true end
     return false
@@ -213,7 +217,7 @@ local function emit_table(log_type, t, indent, table_history)
 end
 
 function BuildMarker.dm(log_type, ...)
-    --if not show_log then return end
+    if not show_log then return end
     for i = 1, select("#", ...) do
         local value = select(i, ...)
         if (type(value) == "table") then
