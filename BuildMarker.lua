@@ -228,6 +228,9 @@ function BuildMarker.dm(log_type, ...)
     end
 end
 
+function BuildMarker:get_slot_bagid(rowControl)
+end
+
 function BuildMarker:ToggleMarker(rowControl, slot)
     local markerControl = rowControl:GetNamedChild(BuildMarker.name)
 
@@ -270,6 +273,17 @@ local function check_inventory()
             end
         end
     end
+	local backpacks = {
+		ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
+	}
+	for i = 1, #backpacks do
+		local oldCallback = backpacks[i].dataTypes[1].setupCallback
+
+		backpacks[i].dataTypes[1].setupCallback = function( rowControl, slot )
+			oldCallback(rowControl, slot)
+			BuildMarker:ToggleMarker(rowControl, slot)
+		end
+	end
 end
 
 local function OnAddOnLoaded(eventCode, addonName)
