@@ -228,20 +228,22 @@ function BuildMarker.dm(log_type, ...)
     end
 end
 
-function BuildMarker:get_slot_bagid(rowControl)
-end
-
-function BuildMarker:ToggleMarker(rowControl, slot)
-    local markerControl = rowControl:GetNamedChild(BuildMarker.name)
-
-    local item_link = GetItemLink(slot.bagId, slot.slotIndex)
+function BuildMarker:is_marked(bagId, slotIndex)
+    local isMeta = false
+    local item_link = GetItemLink(bagId, slotIndex)
     local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(item_link)
     local item_trait = GetItemLinkTraitType(item_link)
-    local isMeta = hasSet and is_meta_set(setName, setId)
     if hasSet then
         BuildMarker.dm("Debug", item_trait)
         BuildMarker.dm("Debug", setName)
     end
+    if (hasSet and is_meta_set(setName, setId)) then isMeta = true end
+    return isMeta
+end
+
+function BuildMarker:ToggleMarker(rowControl, slot)
+    local markerControl = rowControl:GetNamedChild(BuildMarker.name)
+    local isMeta = BuildMarker:is_marked(slot.bagId, slot.slotIndex)
 
     if (not markerControl) then
         if not isMeta then return end
@@ -273,17 +275,19 @@ local function check_inventory()
             end
         end
     end
-	local backpacks = {
-		ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
-	}
-	for i = 1, #backpacks do
-		local oldCallback = backpacks[i].dataTypes[1].setupCallback
+    local backpacks = {
+        ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
+        ZO_SmithingTopLevelImprovementPanelInventoryBackpack,
+        ZO_RetraitStation_KeyboardTopLevelRetraitPanelInventoryBackpack,
+    }
+    for i = 1, #backpacks do
+      local oldCallback = backpacks[i].dataTypes[1].setupCallback
 
-		backpacks[i].dataTypes[1].setupCallback = function( rowControl, slot )
-			oldCallback(rowControl, slot)
-			BuildMarker:ToggleMarker(rowControl, slot)
-		end
-	end
+      backpacks[i].dataTypes[1].setupCallback = function( rowControl, slot )
+        oldCallback(rowControl, slot)
+        BuildMarker:ToggleMarker(rowControl, slot)
+      end
+    end
 end
 
 local function OnAddOnLoaded(eventCode, addonName)
