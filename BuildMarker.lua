@@ -135,6 +135,10 @@ local function is_meta_set(set_name, set_id)
         "Iceheart",
         -- Maelstrom Arena
         "Thunderous Volley",
+        "Crushing Wall",
+        "Perfected Crushing Wall",
+        -- Dragonstar Arena
+        "Titanic Cleave",
         -- Mythic
         "Torc of Tonal Constancy",
         --  Craftable, meaning Light, Heavy, or Medium
