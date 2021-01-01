@@ -70,6 +70,7 @@ local function is_meta_set(set_name, set_id)
         "Powerful Assault",
         "Draugr Hulk",
         -- Light Armor
+        "Elemental Catalyst",
         "Robes of Transmutation",
         "Ysgramor's Birthright",
         "Vampire Lord",
@@ -101,6 +102,7 @@ local function is_meta_set(set_name, set_id)
         "Overwhelming Surge",
         "Infallible Mage",
         -- Heavy Armor
+        "The Ice Furnace",
         "Green Pact",
         "Akaviri Dragonguard",
         "Ebon Armory",
@@ -137,8 +139,18 @@ local function is_meta_set(set_name, set_id)
         "Thunderous Volley",
         "Crushing Wall",
         "Perfected Crushing Wall",
+        "Perfected Rampaging Slash",
         -- Dragonstar Arena
         "Titanic Cleave",
+        "Destructive Impact",
+        "Perfected Destructive Impact",
+        "Puncturing Remedy",
+        "Perfected Puncturing Remedy",
+        --  Asylum Sanctorium
+        "Disciplined Slash",
+        --Blackrose Prison
+        "Mender's Ward",
+        "Perfected Mender's Ward",
         -- Mythic
         "Torc of Tonal Constancy",
         --  Craftable, meaning Light, Heavy, or Medium
@@ -168,6 +180,31 @@ local function is_meta_set(set_name, set_id)
         "Titanborn Strength",
         "Molag Kena",
         "Velidreth",
+        -- Newly found
+        "Armor of the Trainee",
+        "Icy Conjuror",
+        "Impregnable Armor",
+        "Seventh Legion Brute",
+        "Mark of the Pariah",
+        "Death's Wind",
+        "Domihaus",
+        "Knight-Errant's Mail",
+        "Ravager",
+        "Gossamer",
+        "Durok's Bane",
+        "Ancient Dragonguard",
+        "Shroud of the Lich",
+        "Daring Corsair",
+        "Hanu's Compassion",
+        "The Troll King",
+        "Rattlecage",
+        "Sheer Venom",
+        "Eternal Vigor",
+        "Orgnum's Scales",
+        "Spell Power Cure",
+        "The Worm's Raiment",
+        "Maarselok",
+        "Medusa",
         -- Misc
         "Agility",
         "Willpower",
