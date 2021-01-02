@@ -205,6 +205,9 @@ local function is_meta_set(set_name, set_id)
         "The Worm's Raiment",
         "Maarselok",
         "Medusa",
+        "Venomous Smite",
+        "Vicious Death",
+        "Robes of Destruction Mastery",
         -- Misc
         "Agility",
         "Willpower",
