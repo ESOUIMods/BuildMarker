@@ -208,6 +208,7 @@ local function is_meta_set(set_name, set_id)
         "Venomous Smite",
         "Vicious Death",
         "Robes of Destruction Mastery",
+        "Swamp Raider",
         -- Misc
         "Agility",
         "Willpower",
