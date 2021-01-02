@@ -202,7 +202,6 @@ local function is_meta_set(set_name, set_id)
         "Bright-Throat’s Boast",
     }
     local monster_sets = {
-        -- Monster Sets
         "Balorgh",
         "Bloodspawn",
         "Chokethorn",
@@ -313,6 +312,7 @@ local function is_meta_set(set_name, set_id)
         "Poisonous Serpent",
         "Sheer Venom",
         "Viper's Sting",
+        "Marauder's Haste",
     }
     if is_in(set_name, meta_sets) then return true end
     if is_in(set_name, dottzgaming_pve_sets) then return true end
