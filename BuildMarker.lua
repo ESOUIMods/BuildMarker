@@ -313,6 +313,7 @@ local function is_meta_set(set_name, set_id)
         "Sheer Venom",
         "Viper's Sting",
         "Marauder's Haste",
+        "Skooma Smuggler",
     }
     if is_in(set_name, meta_sets) then return true end
     if is_in(set_name, dottzgaming_pve_sets) then return true end
