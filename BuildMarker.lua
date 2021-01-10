@@ -148,7 +148,6 @@ local function is_meta_set(set_name, set_id)
         "Eternal Hunt",
         "Caustic Arrow",
         "Crafty Alfiq",
-        "Bright-Throat's Boast",
         "Shacklebreaker",
         "Spectral Cloak",
         "Blessing of the Potentates",
