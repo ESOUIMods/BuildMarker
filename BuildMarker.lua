@@ -198,7 +198,7 @@ local function is_meta_set(set_name, set_id)
         "Mother's Sorrow",
     }
     local alcasthq_pvp_sets = {
-        "Bright-Throat’s Boast",
+        "Bright-Throat's Boast",
     }
     local monster_sets = {
         "Balorgh",
@@ -251,7 +251,7 @@ local function is_meta_set(set_name, set_id)
         "Crushing Wall",
         "Destructive Impact",
         "Elemental Succession",
-        "Executioner’s Blade",
+        "Executioner's Blade",
         "Footman's Fortune",
         "Force Overflow",
         "Frenzied Momentum",
@@ -273,7 +273,7 @@ local function is_meta_set(set_name, set_id)
         "Perfected Cruel Flurry",
         "Perfected Crushing Wall",
         "Perfected Destructive Impact",
-        "Perfected Executioner’s Blade",
+        "Perfected Executioner's Blade",
         "Perfected Force Overflow",
         "Perfected Frenzied Momentum",
         "Perfected Grand Rejuvenation",
@@ -383,8 +383,8 @@ function BuildMarker:is_marked(bagId, slotIndex)
     local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(item_link)
     local item_trait = GetItemLinkTraitType(item_link)
     if hasSet then
-        BuildMarker.dm("Debug", item_trait)
-        BuildMarker.dm("Debug", setName)
+        --BuildMarker.dm("Debug", item_trait)
+        --BuildMarker.dm("Debug", setName)
     end
     if (hasSet and is_meta_set(setName, setId)) then isMeta = true end
     return isMeta
@@ -397,8 +397,8 @@ function BuildMarker:ToggleMarker(rowControl, slot)
     if (not markerControl) then
         if not isMeta then return end
         -- Create and initialize the marker control
-        BuildMarker.dm("Debug", "Meta Set")
-        BuildMarker.dm("Debug", rowControl:GetName() .. BuildMarker.name)
+        --BuildMarker.dm("Debug", "Meta Set")
+        --BuildMarker.dm("Debug", rowControl:GetName() .. BuildMarker.name)
         markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. BuildMarker.name, rowControl, CT_TEXTURE)
         -- EsoUI/Art/Inventory/newItem_icon.dds
         markerControl:SetTexture("/esoui/art/inventory/newitem_icon.dds")
@@ -412,7 +412,7 @@ function BuildMarker:ToggleMarker(rowControl, slot)
 end
 
 local function check_inventory()
-    BuildMarker.dm("Debug", "check_inventory")
+    --BuildMarker.dm("Debug", "check_inventory")
     for _, v in pairs(PLAYER_INVENTORY.inventories) do
         local listView = v.listView
         if (listView and listView.dataTypes and listView.dataTypes[1]) then
