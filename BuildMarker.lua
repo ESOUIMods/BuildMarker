@@ -38,6 +38,10 @@ local function is_in(search_value, search_table)
 end
 
 local function is_meta_set(set_name, set_id)
+    local new_cp_sets = {
+        "Combat Physician",
+        "Medusa",
+    }
     local meta_sets = {
         -- Medium Armor
         "Shield Breaker",
@@ -314,6 +318,7 @@ local function is_meta_set(set_name, set_id)
         "Marauder's Haste",
         "Skooma Smuggler",
     }
+    if is_in(set_name, new_cp_sets) then return true end
     if is_in(set_name, meta_sets) then return true end
     if is_in(set_name, dottzgaming_pve_sets) then return true end
     if is_in(set_name, dottzgaming_pvp_sets) then return true end
