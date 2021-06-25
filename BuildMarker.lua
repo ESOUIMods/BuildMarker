@@ -41,6 +41,7 @@ local function is_meta_set(set_name, set_id)
     local new_cp_sets = {
         "Combat Physician",
         "Medusa",
+        "Diamond's Victory"
     }
     local meta_sets = {
         -- Medium Armor
