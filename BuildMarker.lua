@@ -119,6 +119,7 @@ local function is_meta_set(set_name, set_id)
         "Vestment of Olorime",
         "Kagrenac's Hope",
         -- PVP Sets
+        "Rallying Cry", -- New 3-22-22
         "Warrior's Fury",
         "Vengeance Leech",
         "Clever Alchemist",
@@ -326,6 +327,10 @@ local function is_meta_set(set_name, set_id)
         "Poisonous Serpent",
         "Sheer Venom",
         "Viper's Sting",
+        "Soulshine",
+        "Wyrd Tree's Blessing",
+        "Deadlands Assassin",
+        "Dark Convergence",
     }
     local speed_sets = {
         "Marauder's Haste",
