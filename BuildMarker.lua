@@ -39,9 +39,8 @@ end
 
 local function is_meta_set(set_name, set_id)
     local new_cp_sets = {
-        "Combat Physician",
-        "Medusa",
-        "Diamond's Victory"
+        "Caluurion's Legacy",
+        "Plaguebreak",
     }
     local meta_sets = {
         -- Medium Armor
@@ -51,7 +50,6 @@ local function is_meta_set(set_name, set_id)
         "Arms of Relequen",
         -- "New Moon Acolyte", << also Magicka Set?
         "Deadly Strike",
-        "Tzogvin's Warband",
         "Vicious Serpent",
         "Armor of Truth",
         "Aegis Caller",
@@ -62,11 +60,8 @@ local function is_meta_set(set_name, set_id)
         "The Morag Tong",
         "Mechanical Acuity",
         "Dragonguard Elite",
-        "Leviathan",
         "Yandir's Might",
-        "Briarheart",
         "Shadow of the Red Mountain",
-        "Hunding's Rage",
         "Essence Thief",
         "Spriggan's Thorns",
         "Azureblight Reaper",
@@ -79,12 +74,9 @@ local function is_meta_set(set_name, set_id)
         "Robes of Transmutation",
         "Ysgramor's Birthright",
         "Vampire Lord",
-        "Hollowfang Thirst",
         "Winter's Respite",
         "Desert Rose",
-        "Night Mother's Gaze",
         "Silks of the Sun",
-        "False God's Devotion",
         "Mantle of Siroria",
         "Mother's Sorrow",
         "New Moon Acolyte",
@@ -95,12 +87,9 @@ local function is_meta_set(set_name, set_id)
         -- "Mechanical Acuity", << also Stam Set?
         "Burning Spellweave",
         "Scathing Mage",
-        "Law of Julianos",
         "Draugrkin's Grip",
         "Z'en's Redress",
         "Way of Martial Knowledge",
-        "Necropotence",
-        "Spinner's Garments",
         "Moondancer",
         "Overwhelming Surge",
         "Infallible Mage",
@@ -108,25 +97,12 @@ local function is_meta_set(set_name, set_id)
         "The Ice Furnace",
         "Green Pact",
         "Akaviri Dragonguard",
-        "Ebon Armory",
-        "Claw of Yolnahkriin",
-        "Fortified Brass",
-        "Torug's Pact",
-        "Night's Silence",
-        "Brands of Imperium",
-        "Battalion Defender",
         "Plague Doctor",
         "Warrior-Poet",
         "Bahraha's Curse",
         -- Maelstrom Arena
-        "Thunderous Volley",
-        "Crushing Wall",
-        "Perfected Crushing Wall",
         "Perfected Rampaging Slash",
         -- Dragonstar Arena
-        "Titanic Cleave",
-        "Destructive Impact",
-        "Perfected Destructive Impact",
         "Puncturing Remedy",
         "Perfected Puncturing Remedy",
         --  Asylum Sanctorium
@@ -139,11 +115,8 @@ local function is_meta_set(set_name, set_id)
         --  Craftable, meaning Light, Heavy, or Medium
         "Stuhn's Favor",
         "Coldharbour's Favorite",
-        "Armor of the Seducer",
         "Jorvuld's Guidance",
         "Vestment of Olorime",
-        "Grand Rejuvenation",
-        "Magnus' Gift",
         "Kagrenac's Hope",
         -- PVP Sets
         "Warrior's Fury",
@@ -154,9 +127,7 @@ local function is_meta_set(set_name, set_id)
         "Caustic Arrow",
         "Crafty Alfiq",
         "Shacklebreaker",
-        "Spectral Cloak",
         "Blessing of the Potentates",
-        "Destructive Impact",
         "Titanborn Strength",
         -- Newly found
         "Armor of the Trainee",
@@ -169,7 +140,6 @@ local function is_meta_set(set_name, set_id)
         "Ravager",
         "Gossamer",
         "Durok's Bane",
-        "Ancient Dragonguard",
         "Shroud of the Lich",
         "Daring Corsair",
         "Hanu's Compassion",
@@ -177,7 +147,6 @@ local function is_meta_set(set_name, set_id)
         "Sheer Venom",
         "Eternal Vigor",
         "Orgnum's Scales",
-        "Spell Power Cure",
         "The Worm's Raiment",
         "Medusa",
         "Venomous Smite",
@@ -189,18 +158,55 @@ local function is_meta_set(set_name, set_id)
         "Imperial Physique",
         "Vesture of Darloc Brae",
         "Jailbreaker",
-        -- Misc
+        "Combat Physician",
+        "Diamond's Victory",
+        -- 03/22 New/Verified
+        "Armor of the Seducer",
+        "False God's Devotion",
+        "Leviathan",
+        "Hunding's Rage",
+        "Briarheart",
+        "Night Mother's Gaze",
+        "Tzogvin's Warband",
+        "Spell Power Cure",
+        "Hollowfang Thirst",
+        "Ebon Armory",
+        "Battalion Defender",
+        "Fortified Brass",
+        "Torug's Pact",
+        "Claw of Yolnahkriin",
+        "Night's Silence",
+        "Necropotence",
+        "Spinner's Garments",
+        "Brands of Imperium",
+        "Ancient Dragonguard",
+    }
+    local beginner_sets = {
         "Agility",
         "Willpower",
     }
     local dottzgaming_pve_sets = {
         "Berserking Warrior",
+        "Saxhleel Champion",
+        "Crimson Oath's Rive",
+        "Magma Incarnate",
+        "Frostbite",
     }
     local dottzgaming_pvp_sets = {
         "Eternal Vigor",
+        "Daedric Trickery",
+        "Heartland Conqueror",
+        "Stygian",
+        "War Maiden",
+        "Black Rose",
     }
     local alcasthq_pve_sets = {
+        -- 03/22 Verified
         "Mother's Sorrow",
+        "Law of Julianos",
+        "Magnus' Gift",
+        -- 03/22 New
+        "Kinra’s Wrath",
     }
     local alcasthq_pvp_sets = {
         "Bright-Throat's Boast",
@@ -210,19 +216,14 @@ local function is_meta_set(set_name, set_id)
         "Bloodspawn",
         "Chokethorn",
         "Domihaus",
-        "Earthgore",
         "Engine Guardian",
         "Grothdarr",
         "Grundwulf",
-        "Iceheart",
         "Ilambris",
         "Infernal Guardian",
-        "Kjalnar's Nightmare",
         "Kra'gh",
         "Lady Thorn",
-        "Lord Warden",
         "Maarselok",
-        "Maw of the Infernal",
         "Mighty Chudan",
         "Molag Kena",
         "Mother Ciannait",
@@ -232,14 +233,11 @@ local function is_meta_set(set_name, set_id)
         "Scourge Harvester",
         "Selene",
         "Sellistrix",
-        "Sentinel of Rkugamz",
         "Shadowrend",
         "Slimecraw",
         "Spawn of Mephala",
         "Stone Husk",
         "Stonekeeper",
-        "Stormfist",
-        "Swarm Mother",
         "Symphony of Blades",
         "The Troll King",
         "Thurvokun",
@@ -248,13 +246,20 @@ local function is_meta_set(set_name, set_id)
         "Velidreth",
         "Vykosa",
         "Zaan",
+        -- 03/22 New/Verified
+        "Swarm Mother",
+        "Earthgore",
+        "Kjalnar's Nightmare",
+        "Stormfist",
+        "Sentinel of Rkugamz",
+        "Lord Warden",
+        "Maw of the Infernal",
+        "Iceheart",
     }
     local arena_sets = {
         "Archer's Mind",
         "Caustic Arrow",
         "Cruel Flurry",
-        "Crushing Wall",
-        "Destructive Impact",
         "Elemental Succession",
         "Executioner's Blade",
         "Footman's Fortune",
@@ -262,7 +267,6 @@ local function is_meta_set(set_name, set_id)
         "Frenzied Momentum",
         "Gallant Charge",
         "Glorious Defender",
-        "Grand Rejuvenation",
         "Healer's Habit",
         "Hunt Leader",
         "Mender's Ward",
@@ -271,43 +275,49 @@ local function is_meta_set(set_name, set_id)
         "Perfect Gallant Charge",
         "Perfect Mender's Ward",
         "Perfect Radial Uppercut",
-        "Perfect Spectral Cloak",
         "Perfect Virulent Shot",
         "Perfect Wild Impulse",
         "Perfected Caustic Arrow",
         "Perfected Cruel Flurry",
-        "Perfected Crushing Wall",
-        "Perfected Destructive Impact",
         "Perfected Executioner's Blade",
         "Perfected Force Overflow",
         "Perfected Frenzied Momentum",
-        "Perfected Grand Rejuvenation",
         "Perfected Merciless Charge",
-        "Perfected Point-Blank Snipe",
         "Perfected Precise Regeneration",
         "Perfected Puncturing Remedy",
         "Perfected Rampaging Slash",
         "Perfected Stinging Slashes",
-        "Perfected Thunderous Volley",
-        "Perfected Titanic Cleave",
         "Perfected Void Bash",
         "Perfected Wrath of Elements",
         "Permafrost",
-        "Point-Blank Snipe",
         "Precise Regeneration",
         "Puncturing Remedy",
         "Radial Uppercut",
         "Rampaging Slash",
         "Robes of Destruction Mastery",
-        "Spectral Cloak",
         "Stinging Slashes",
-        "Thunderous Volley",
-        "Titanic Cleave",
         "Virulent Shot",
         "Void Bash",
         "Wild Impulse",
         "Winterborn",
         "Wrath of Elements",
+        "Destructive Impact",
+        "Perfected Destructive Impact",
+        -- 03/22 New/Verified
+        "Perfected Bahsei's Mania",
+        "Perfected Arms of Relequen",
+        "Thunderous Volley",
+        "Perfected Thunderous Volley",
+        "Crushing Wall",
+        "Perfected Crushing Wall",
+        "Point-Blank Snipe",
+        "Perfected Point-Blank Snipe",
+        "Grand Rejuvenation",
+        "Perfected Grand Rejuvenation",
+        "Spectral Cloak",
+        "Perfect Spectral Cloak",
+        "Titanic Cleave",
+        "Perfected Titanic Cleave",
     }
     local sharlikran_sets = {
         "Mad Tinkerer",
@@ -316,11 +326,14 @@ local function is_meta_set(set_name, set_id)
         "Poisonous Serpent",
         "Sheer Venom",
         "Viper's Sting",
+    }
+    local speed_sets = {
         "Marauder's Haste",
         "Skooma Smuggler",
     }
     if is_in(set_name, new_cp_sets) then return true end
     if is_in(set_name, meta_sets) then return true end
+    if is_in(set_name, beginner_sets) then return true end
     if is_in(set_name, dottzgaming_pve_sets) then return true end
     if is_in(set_name, dottzgaming_pvp_sets) then return true end
     if is_in(set_name, alcasthq_pve_sets) then return true end
@@ -328,6 +341,7 @@ local function is_meta_set(set_name, set_id)
     if is_in(set_name, monster_sets) then return true end
     if is_in(set_name, arena_sets) then return true end
     if is_in(set_name, sharlikran_sets) then return true end
+    if is_in(set_name, speed_sets) then return true end
     return false
 end
 
