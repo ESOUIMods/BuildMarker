@@ -1,7 +1,9 @@
 BuildMarker = {}
 BuildMarker.name = "BuildMarker"
 LSET = LibSets
-local logger = LibDebugLogger.Create(BuildMarker.name)
+if LibDebugLogger then
+  local logger = LibDebugLogger.Create(BuildMarker.name)
+end
 local show_log = false
 local SDLV = DebugLogViewer
 

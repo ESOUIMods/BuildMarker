@@ -7,9 +7,9 @@
 ## Title: BuildMarker
 ## Description: Tracks prefered gear for builds
 ## Author: Sharlikran
-## AddOnVersion: 101
-## Version: 1.01
-## APIVersion: 101033 101034
+## AddOnVersion: 102
+## Version: 1.02
+## APIVersion: 101035 101036
 ## DependsOn: LibSets
 ## OptionalDependsOn: LibDebugLogger>=196 DebugLogViewer
 
