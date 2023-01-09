@@ -459,7 +459,7 @@ local function check_inventory()
     for i = 1, #backpacks do
       local oldCallback = backpacks[i].dataTypes[1].setupCallback
 
-      backpacks[i].dataTypes[1].setupCallback = function( rowControl, slot )
+      backpacks[i].dataTypes[1].setupCallback = function(rowControl, slot)
         oldCallback(rowControl, slot)
         BuildMarker:ToggleMarker(rowControl, slot)
       end
