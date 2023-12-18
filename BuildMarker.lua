@@ -455,6 +455,7 @@ local function check_inventory()
         ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
         ZO_SmithingTopLevelImprovementPanelInventoryBackpack,
         ZO_RetraitStation_KeyboardTopLevelRetraitPanelInventoryBackpack,
+        ZO_UniversalDeconstructionTopLevel_KeyboardPanelInventoryBackpack,
     }
     for i = 1, #backpacks do
       local oldCallback = backpacks[i].dataTypes[1].setupCallback
