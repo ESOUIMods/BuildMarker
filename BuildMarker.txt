@@ -9,8 +9,8 @@
 ## Author: Sharlikran
 ## AddOnVersion: 102
 ## Version: 1.02
-## APIVersion: 101039 101040
-## DependsOn: LibSets
-## OptionalDependsOn: LibDebugLogger>=196 DebugLogViewer
+## APIVersion: 101045 101046
+## DependsOn: LibSets>=000709
+## OptionalDependsOn: LibDebugLogger>=268 DebugLogViewer
 
 BuildMarker.lua

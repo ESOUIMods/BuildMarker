@@ -7,25 +7,9 @@ end
 local show_log = false
 local SDLV = DebugLogViewer
 
-function is_empty_or_nil(t)
-    if not t then return true end
-    if type(t) == "table" then
-        if next(t) == nil then
-            return true
-        else
-            return false
-        end
-    elseif type(t) == "string" then
-        if t == nil then
-            return true
-        elseif t == "" then
-            return true
-        else
-            return false
-        end
-    elseif type(t) == "nil" then
-        return true
-    end
+local function is_empty_or_nil(t)
+  if t == nil or t == "" then return true end
+  return type(t) == "table" and ZO_IsTableEmpty(t) or false
 end
 
 local function is_in(search_value, search_table)
@@ -58,7 +42,6 @@ local function is_meta_set(set_name, set_id)
         "Roar of Alkosh",
         "War Machine",
         "Twice-Fanged Serpent",
-        "Berserking Warrior",
         "The Morag Tong",
         "Mechanical Acuity",
         "Dragonguard Elite",
@@ -76,7 +59,6 @@ local function is_meta_set(set_name, set_id)
         "Robes of Transmutation",
         "Ysgramor's Birthright",
         "Vampire Lord",
-        "Winter's Respite",
         "Desert Rose",
         "Silks of the Sun",
         "Mantle of Siroria",
@@ -189,7 +171,6 @@ local function is_meta_set(set_name, set_id)
         "Willpower",
     }
     local dottzgaming_pve_sets = {
-        "Berserking Warrior",
         "Saxhleel Champion",
         "Crimson Oath's Rive",
         "Magma Incarnate",
@@ -329,13 +310,11 @@ local function is_meta_set(set_name, set_id)
         "Poisonous Serpent",
         "Sheer Venom",
         "Viper's Sting",
-        "Soulshine",
         "Wyrd Tree's Blessing",
         "Deadlands Assassin",
         "Dark Convergence",
     }
     local speed_sets = {
-        "Marauder's Haste",
         "Skooma Smuggler",
     }
     if is_in(set_name, new_cp_sets) then return true end
