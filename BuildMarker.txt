@@ -9,7 +9,7 @@
 ## Author: Sharlikran
 ## AddOnVersion: 102
 ## Version: 1.02
-## APIVersion: 101045 101046
+## APIVersion: 101046 101047
 ## DependsOn: LibSets>=000709
 ## OptionalDependsOn: LibDebugLogger>=268 DebugLogViewer
 

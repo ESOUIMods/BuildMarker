@@ -8,449 +8,452 @@ local show_log = false
 local SDLV = DebugLogViewer
 
 local function is_empty_or_nil(t)
-  if t == nil or t == "" then return true end
+  if t == nil or t == "" then
+    return true
+  end
   return type(t) == "table" and ZO_IsTableEmpty(t) or false
 end
 
 local function is_in(search_value, search_table)
-    if is_empty_or_nil(search_value) then return false end
-    for k, v in pairs(search_table) do
-        if search_value == v then return true end
-        if type(search_value) == "string" then
-            if string.find(string.lower(v), string.lower(search_value)) then return true end
-        end
-    end
+  if is_empty_or_nil(search_value) then
     return false
+  end
+  for k, v in pairs(search_table) do
+    if search_value == v then
+      return true
+    end
+    if type(search_value) == "string" then
+      if string.find(string.lower(v), string.lower(search_value)) then
+        return true
+      end
+    end
+  end
+  return false
 end
 
 local function is_meta_set(set_name, set_id)
-    local new_cp_sets = {
-        "Caluurion's Legacy",
-        "Plaguebreak",
-    }
-    local meta_sets = {
-        -- Medium Armor
-        "Shield Breaker",
-        "Defiler",
-        "Tooth of Lokkestiiz",
-        "Arms of Relequen",
-        -- "New Moon Acolyte", << also Magicka Set?
-        "Deadly Strike",
-        "Vicious Serpent",
-        "Armor of Truth",
-        "Aegis Caller",
-        "Roar of Alkosh",
-        "War Machine",
-        "Twice-Fanged Serpent",
-        "The Morag Tong",
-        "Mechanical Acuity",
-        "Dragonguard Elite",
-        "Yandir's Might",
-        "Shadow of the Red Mountain",
-        "Essence Thief",
-        "Spriggan's Thorns",
-        "Azureblight Reaper",
-        "Heem-Jas' Retribution",
-        "Scavenging Demise",
-        "Powerful Assault",
-        "Draugr Hulk",
-        -- Light Armor
-        "Elemental Catalyst",
-        "Robes of Transmutation",
-        "Ysgramor's Birthright",
-        "Vampire Lord",
-        "Desert Rose",
-        "Silks of the Sun",
-        "Mantle of Siroria",
-        "Mother's Sorrow",
-        "New Moon Acolyte",
-        "Master Architect",
-        "Elf Bane",
-        "Spell Strategist",
-        "Elemental Succession",
-        -- "Mechanical Acuity", << also Stam Set?
-        "Burning Spellweave",
-        "Scathing Mage",
-        "Draugrkin's Grip",
-        "Z'en's Redress",
-        "Way of Martial Knowledge",
-        "Moondancer",
-        "Overwhelming Surge",
-        "Infallible Mage",
-        -- Heavy Armor
-        "The Ice Furnace",
-        "Green Pact",
-        "Akaviri Dragonguard",
-        "Plague Doctor",
-        "Warrior-Poet",
-        "Bahraha's Curse",
-        -- Maelstrom Arena
-        "Perfected Rampaging Slash",
-        -- Dragonstar Arena
-        "Puncturing Remedy",
-        "Perfected Puncturing Remedy",
-        --  Asylum Sanctorium
-        "Disciplined Slash",
-        --Blackrose Prison
-        "Mender's Ward",
-        "Perfected Mender's Ward",
-        -- Mythic
-        "Torc of Tonal Constancy",
-        --  Craftable, meaning Light, Heavy, or Medium
-        "Stuhn's Favor",
-        "Coldharbour's Favorite",
-        "Jorvuld's Guidance",
-        "Vestment of Olorime",
-        "Kagrenac's Hope",
-        -- PVP Sets
-        "Rallying Cry", -- New 3-22-22
-        "Warrior's Fury",
-        "Vengeance Leech",
-        "Clever Alchemist",
-        "Endurance",
-        "Eternal Hunt",
-        "Caustic Arrow",
-        "Crafty Alfiq",
-        "Shacklebreaker",
-        "Blessing of the Potentates",
-        "Titanborn Strength",
-        -- Newly found
-        "Armor of the Trainee",
-        "Icy Conjuror",
-        "Impregnable Armor",
-        "Seventh Legion Brute",
-        "Mark of the Pariah",
-        "Death's Wind",
-        "Knight-Errant's Mail",
-        "Ravager",
-        "Gossamer",
-        "Durok's Bane",
-        "Shroud of the Lich",
-        "Daring Corsair",
-        "Hanu's Compassion",
-        "Rattlecage",
-        "Sheer Venom",
-        "Eternal Vigor",
-        "Orgnum's Scales",
-        "The Worm's Raiment",
-        "Medusa",
-        "Venomous Smite",
-        "Vicious Death",
-        "Robes of Destruction Mastery",
-        "Swamp Raider",
-        "Trappings of Invigoration",
-        "Gallant Charge",
-        "Imperial Physique",
-        "Vesture of Darloc Brae",
-        "Jailbreaker",
-        "Combat Physician",
-        "Diamond's Victory",
-        -- 03/22 New/Verified
-        "Armor of the Seducer",
-        "False God's Devotion",
-        "Leviathan",
-        "Hunding's Rage",
-        "Briarheart",
-        "Night Mother's Gaze",
-        "Tzogvin's Warband",
-        "Spell Power Cure",
-        "Hollowfang Thirst",
-        "Ebon Armory",
-        "Battalion Defender",
-        "Fortified Brass",
-        "Torug's Pact",
-        "Claw of Yolnahkriin",
-        "Night's Silence",
-        "Necropotence",
-        "Spinner's Garments",
-        "Brands of Imperium",
-        "Ancient Dragonguard",
-    }
-    local beginner_sets = {
-        "Agility",
-        "Willpower",
-    }
-    local dottzgaming_pve_sets = {
-        "Saxhleel Champion",
-        "Crimson Oath's Rive",
-        "Magma Incarnate",
-        "Frostbite",
-    }
-    local dottzgaming_pvp_sets = {
-        "Eternal Vigor",
-        "Daedric Trickery",
-        "Heartland Conqueror",
-        "Stygian",
-        "War Maiden",
-        "Black Rose",
-    }
-    local alcasthq_pve_sets = {
-        -- 03/22 Verified
-        "Mother's Sorrow",
-        "Law of Julianos",
-        "Magnus' Gift",
-        -- 03/22 New
-        "Kinra’s Wrath",
-    }
-    local alcasthq_pvp_sets = {
-        "Bright-Throat's Boast",
-    }
-    local monster_sets = {
-        "Balorgh",
-        "Bloodspawn",
-        "Chokethorn",
-        "Domihaus",
-        "Engine Guardian",
-        "Grothdarr",
-        "Grundwulf",
-        "Ilambris",
-        "Infernal Guardian",
-        "Kra'gh",
-        "Lady Thorn",
-        "Maarselok",
-        "Mighty Chudan",
-        "Molag Kena",
-        "Mother Ciannait",
-        "Nerien'eth",
-        "Nightflame",
-        "Pirate Skeleton",
-        "Scourge Harvester",
-        "Selene",
-        "Sellistrix",
-        "Shadowrend",
-        "Slimecraw",
-        "Spawn of Mephala",
-        "Stone Husk",
-        "Stonekeeper",
-        "Symphony of Blades",
-        "The Troll King",
-        "Thurvokun",
-        "Tremorscale",
-        "Valkyn Skoria",
-        "Velidreth",
-        "Vykosa",
-        "Zaan",
-        -- 03/22 New/Verified
-        "Swarm Mother",
-        "Earthgore",
-        "Kjalnar's Nightmare",
-        "Stormfist",
-        "Sentinel of Rkugamz",
-        "Lord Warden",
-        "Maw of the Infernal",
-        "Iceheart",
-    }
-    local arena_sets = {
-        "Archer's Mind",
-        "Caustic Arrow",
-        "Cruel Flurry",
-        "Elemental Succession",
-        "Executioner's Blade",
-        "Footman's Fortune",
-        "Force Overflow",
-        "Frenzied Momentum",
-        "Gallant Charge",
-        "Glorious Defender",
-        "Healer's Habit",
-        "Hunt Leader",
-        "Mender's Ward",
-        "Merciless Charge",
-        "Para Bellum",
-        "Perfect Gallant Charge",
-        "Perfect Mender's Ward",
-        "Perfect Radial Uppercut",
-        "Perfect Virulent Shot",
-        "Perfect Wild Impulse",
-        "Perfected Caustic Arrow",
-        "Perfected Cruel Flurry",
-        "Perfected Executioner's Blade",
-        "Perfected Force Overflow",
-        "Perfected Frenzied Momentum",
-        "Perfected Merciless Charge",
-        "Perfected Precise Regeneration",
-        "Perfected Puncturing Remedy",
-        "Perfected Rampaging Slash",
-        "Perfected Stinging Slashes",
-        "Perfected Void Bash",
-        "Perfected Wrath of Elements",
-        "Permafrost",
-        "Precise Regeneration",
-        "Puncturing Remedy",
-        "Radial Uppercut",
-        "Rampaging Slash",
-        "Robes of Destruction Mastery",
-        "Stinging Slashes",
-        "Virulent Shot",
-        "Void Bash",
-        "Wild Impulse",
-        "Winterborn",
-        "Wrath of Elements",
-        "Destructive Impact",
-        "Perfected Destructive Impact",
-        -- 03/22 New/Verified
-        "Perfected Bahsei's Mania",
-        "Perfected Arms of Relequen",
-        "Thunderous Volley",
-        "Perfected Thunderous Volley",
-        "Crushing Wall",
-        "Perfected Crushing Wall",
-        "Point-Blank Snipe",
-        "Perfected Point-Blank Snipe",
-        "Grand Rejuvenation",
-        "Perfected Grand Rejuvenation",
-        "Spectral Cloak",
-        "Perfect Spectral Cloak",
-        "Titanic Cleave",
-        "Perfected Titanic Cleave",
-    }
-    local sharlikran_sets = {
-        "Mad Tinkerer",
-        "Unfathomable Darkness",
-        "Flame Blossom",
-        "Poisonous Serpent",
-        "Sheer Venom",
-        "Viper's Sting",
-        "Wyrd Tree's Blessing",
-        "Deadlands Assassin",
-        "Dark Convergence",
-    }
-    local speed_sets = {
-        "Skooma Smuggler",
-    }
-    if is_in(set_name, new_cp_sets) then return true end
-    if is_in(set_name, meta_sets) then return true end
-    if is_in(set_name, beginner_sets) then return true end
-    if is_in(set_name, dottzgaming_pve_sets) then return true end
-    if is_in(set_name, dottzgaming_pvp_sets) then return true end
-    if is_in(set_name, alcasthq_pve_sets) then return true end
-    if is_in(set_name, alcasthq_pvp_sets) then return true end
-    if is_in(set_name, monster_sets) then return true end
-    if is_in(set_name, arena_sets) then return true end
-    if is_in(set_name, sharlikran_sets) then return true end
-    if is_in(set_name, speed_sets) then return true end
-    return false
+  local meta_pve_dps = {
+    "Arms of Relequen",
+    "Deadly Strike",
+    "Crushing Wall",
+    "Perfected Crushing Wall",
+    "Thunderous Volley",
+    "Perfected Thunderous Volley",
+    "Whorl of the Depths", -- Strong proc set for trials
+    "Ansuul’s Torment", -- Hybrid DPS sustain set
+  }
+  local meta_pve_healer = {
+    "Spell Power Cure",
+    "Vestment of Olorime",
+    "Jorvuld's Guidance",
+    "Symphony of Blades",
+    "Powerful Assault",
+    "Pillager’s Profit", -- Ultimate generation support set
+  }
+  local meta_pve_tank = {
+    "Saxhleel Champion",
+    "Claw of Yolnahkriin",
+    "Crimson Oath's Rive",
+    "Powerful Assault",
+    "Turning Tide", -- Major Vulnerability application
+    "Lucent Echoes", -- Applies Major Cowardice (strong debuff)
+  }
+  local meta_pvp_dps = {
+    "Plaguebreak",
+    "Vicious Death",
+    "Deadly Strike",
+    "Clever Alchemist",
+    "Rallying Cry",       -- Strong group utility set in PvP
+    "Dark Convergence",   -- Pull + burst combo set, still used
+    "Wretched Vitality",  -- High sustain for PvP builds
+  }
+  local meta_pvp_healer = {
+    "Rallying Cry",
+  }
+  local meta_pvp_tanky = {
+    "Mark of the Pariah",
+    "Daedric Trickery",
+    "Impregnable Armor",
+  }
+
+  local viable_pve_dps = {
+    "New Moon Acolyte",
+    "Mechanical Acuity",
+    "Burning Spellweave",
+    "Overwhelming Surge",
+    "Powerful Assault",
+    "Vestment of Olorime",
+    "Pillar of Nirn", -- Bleed proc, strong fallback if no Relequen
+    "Tzogvin’s Warband", -- Crit chance stacking, good trial entry set
+    "Medusa", -- Minor Force + Major Prophecy
+  }
+  local viable_pve_healer = {
+    "Symphony of Blades",
+    "Jorvuld's Guidance",
+    "Robes of Transmutation",
+  }
+  local viable_pve_tank = {
+    "Crimson Oath's Rive",
+    "Saxhleel Champion", -- though also often meta, keep here as fallback
+    "Arkasis’s Genius", -- Group ultimate battery
+    "Ebon Armory", -- Group Max Health
+    "Leeching Plate", -- Self-heal sustain tanking
+  }
+  local viable_pvp_dps = {
+    "Vicious Death",
+    "Clever Alchemist",
+    "Deadly Strike",
+  }
+  local viable_pvp_healer = {
+    "Daedric Trickery",
+  }
+  local viable_pvp_tanky = {
+    "Mark of the Pariah",
+    "Impregnable Armor",
+  }
+
+  local arena_weapon_items = {
+    -- Vateshran Hollows
+    "Wrath of Elements", "Perfected Wrath of Elements",
+    "Force Overflow", "Perfected Force Overflow",
+    "Point-Blank Snipe", "Perfected Point-Blank Snipe",
+    "Frenzied Momentum", "Perfected Frenzied Momentum",
+    "Executioner's Blade", "Perfected Executioner's Blade",
+    "Void Bash", "Perfected Void Bash",
+
+    -- Maelstrom Arena
+    "Crushing Wall", "Perfected Crushing Wall",
+    "Precise Regeneration", "Perfected Precise Regeneration",
+    "Thunderous Volley", "Perfected Thunderous Volley",
+    "Merciless Charge", "Perfected Merciless Charge",
+    "Cruel Flurry", "Perfected Cruel Flurry",
+    "Rampaging Slash", "Perfected Rampaging Slash",
+
+    -- Dragonstar Arena (Master)
+    "Caustic Arrow", "Perfected Caustic Arrow",
+    "Stinging Slashes", "Perfected Stinging Slashes",
+    "Puncturing Remedy", "Perfected Puncturing Remedy",
+    "Grand Rejuvenation", "Perfected Grand Rejuvenation",
+    "Titanic Cleave", "Perfected Titanic Cleave",
+    "Destructive Impact", "Perfected Destructive Impact",
+
+    -- Blackrose Prison
+    "Wild Impulse", "Perfected Wild Impulse",
+    "Mender's Ward", "Perfected Mender's Ward",
+    "Virulent Shot", "Perfect Virulent Shot",
+    "Radial Uppercut", "Perfect Radial Uppercut",
+    "Spectral Cloak", "Perfect Spectral Cloak",
+    "Gallant Charge", "Perfect Gallant Charge",
+
+    -- Asylum Sanctorium
+    "Concentrated Force", "Perfected Concentrated Force",
+    "Timeless Blessing", "Perfected Timeless Blessing",
+    "Piercing Spray", "Perfected Piercing Spray",
+    "Disciplined Slash", "Perfected Disciplined Slash",
+    "Chaotic Whirlwind", "Perfected Chaotic Whirlwind",
+    "Defensive Position", "Perfected Defensive Position",
+  }
+  -- Infinite Archive (Class Sets) — full set names to protect from accidental deconstruct
+  local infinite_archive_class_sets = {
+    -- U40 wave
+    "Basalt-Blooded Warrior",
+    "Gardener of Seasons",
+    "Monolith of Storms",
+    "Nobility in Decay",
+    "Reawakened Hierophant",
+    "Soulcleaver",
+
+    -- Later additions (U43+)
+    "Spattering Disjunction",
+    "Pyrebrand",
+    "Corpseburster",
+    "Umbral Edge",
+    "Beacon of Oblivion",
+    "Aetheric Lancer",
+    "Aerie's Cry",
+  }
+  local sharlikran_sets = {
+    "Mad Tinkerer",
+    "Unfathomable Darkness",
+    "Flame Blossom",
+    "Poisonous Serpent",
+    "Venomous Smite",
+    "Sheer Venom",
+    "Viper's Sting",
+    "Wyrd Tree's Blessing",
+    "Deadlands Assassin",
+    "Dark Convergence",
+    "Defiler",
+    "Warrior-Poet",
+    "Plague Doctor",
+  }
+  local meta_speed_sets = {
+    "Ring of the Wild Hunt",
+  }
+
+  local viable_speed_sets = {
+    "Skooma Smuggler",
+  }
+  local niche_speed_sets = {
+    "Adept Rider", -- Permanent Major Expedition + Major Gallop
+    "Coward's Gear", -- Major Expedition in combat while not blocking
+    "Jailbreaker", -- Minor Expedition (constant)
+    "Darkstride", -- Reduces sprint/sneak cost by 50%
+    "Fiord's Legacy", -- Reduces sprint cost, increases sprint speed
+  }
+  local niche_thief_sets = {
+    "Night's Silence", -- Removes movement penalty while sneaking
+    "Night Mother's Embrace", -- Reduces detection range while sneaking
+    "f", -- Major Expedition + Sneak bonuses
+    "Darkstride", -- Reduces Sprint and Sneak cost
+    "Fiord's Legacy", -- Increases sprint speed, reduces sprint cost
+    "Shadow Dancer's Raiment", -- Roll dodge + Sneak synergy
+    "Armor of the Trainee", -- Popular for one-bar sneaky utility builds
+  }
+  local monster_sets = {
+    "Anthelmir's Construct",
+    "Archdruid Devyric",
+    "Balorgh",
+    "Baron Thirsk",
+    "Baron Zaudrus",
+    "Bloodspawn",
+    "Chokethorn",
+    "Domihaus",
+    "Earthgore",
+    "Encratis's Behemoth",
+    "Engine Guardian",
+    "Euphotic Gatekeeper",
+    "Glorgoloch the Destroyer",
+    "Grothdarr",
+    "Grundwulf",
+    "Iceheart",
+    "Ilambris",
+    "Immolator Charr",
+    "Infernal Guardian",
+    "Kargaeda",
+    "Kjalnar's Nightmare",
+    "Kra'gh",
+    "Lady Malygda",
+    "Lady Thorn",
+    "Lord Warden",
+    "Maarselok",
+    "Magma Incarnate",
+    "Maw of the Infernal",
+    "Mighty Chudan",
+    "Molag Kena",
+    "Mother Ciannait",
+    "Nazaray",
+    "Nerien'eth",
+    "Nightflame",
+    "Nunatak",
+    "Orpheon the Tactician",
+    "Ozezan the Inferno",
+    "Pirate Skeleton",
+    "Prior Thierric",
+    "Roksa the Warped",
+    "Scourge Harvester",
+    "Selene",
+    "Sellistrix",
+    "Sentinel of Rkugamz",
+    "Shadowrend",
+    "Slimecraw",
+    "Spawn of Mephala",
+    "Squall of Retribution",
+    "Stone Husk",
+    "Stonekeeper",
+    "Stormfist",
+    "Swarm Mother",
+    "Symphony of Blades",
+    "The Blind",
+    "The Troll King",
+    "Thurvokun",
+    "Tremorscale",
+    "Valkyn Skoria",
+    "Velidreth",
+    "Vykosa",
+    "Zaan",
+    "Zoal the Ever-Wakeful",
+  }
+
+  local niche_proc_fun_sets = {
+    "Scavenging Demise", -- Spectral bow poison shot on crit
+    "Nerien'eth", -- Summons spinning spectral sword AoE
+    "Valkyn Skoria", -- Drops flaming meteor on DoT crit
+    "Maarselok", -- Poison breath cone (monster set)
+    "Sellistrix", -- AoE earthquake proc
+    "Grothdarr", -- Flame damage aura
+    "Spawn of Mephala", -- Summons spider poison AoE
+    "Stormfist", -- Storm atronach fist ground slam
+    "Selene", -- Bear spirit slam
+    "Glorgoloch the Destroyer", -- Damaging AoE shockwave
+    "Encratis's Behemoth", -- Flame damage & resistance aura
+    "Euphotic Gatekeeper", -- Tentacle AoE proc
+    "Winterborn",
+  }
+
+  local beginner_sets = {
+    "Agility",
+    "Willpower",
+    "Endurance",
+  }
+
+  if is_in(set_name, meta_pve_dps) then return true end
+  if is_in(set_name, meta_pve_healer) then return true end
+  if is_in(set_name, meta_pve_tank) then return true end
+  if is_in(set_name, meta_pvp_dps) then return true end
+  if is_in(set_name, meta_pvp_healer) then return true end
+  if is_in(set_name, meta_pvp_tanky) then return true end
+
+  if is_in(set_name, viable_pve_dps) then return true end
+  if is_in(set_name, viable_pve_healer) then return true end
+  if is_in(set_name, viable_pve_tank) then return true end
+  if is_in(set_name, viable_pvp_dps) then return true end
+  if is_in(set_name, viable_pvp_healer) then return true end
+  if is_in(set_name, viable_pvp_tanky) then return true end
+
+  if is_in(set_name, arena_weapon_items) then return true end
+  if is_in(set_name, infinite_archive_class_sets) then return true end
+  if is_in(set_name, sharlikran_sets) then return true end
+  if is_in(set_name, meta_speed_sets) then return true end
+  if is_in(set_name, viable_speed_sets) then return true end
+  if is_in(set_name, niche_speed_sets) then return true end
+  if is_in(set_name, niche_thief_sets) then return true end
+
+  if is_in(set_name, beginner_sets) then return true end
+  if is_in(set_name, monster_sets) then return true end
+  if is_in(set_name, niche_proc_fun_sets) then return true end
+
+  return false
 end
 
 local function create_log(log_type, log_content)
-    if logger and SDLV then
-        if log_type == "Debug" then
-            logger:Debug(log_content)
-        end
-        if log_type == "Verbose" then
-            logger:Verbose(log_content)
-        end
-    else
-        d(log_content)
+  if logger and SDLV then
+    if log_type == "Debug" then
+      logger:Debug(log_content)
     end
+    if log_type == "Verbose" then
+      logger:Verbose(log_content)
+    end
+  else
+    d(log_content)
+  end
 end
 
 local function emit_message(log_type, text)
-    if (text == "") then
-        text = "[Empty String]"
-    end
-    create_log(log_type, text)
+  if (text == "") then
+    text = "[Empty String]"
+  end
+  create_log(log_type, text)
 end
 
 local function emit_table(log_type, t, indent, table_history)
-    indent = indent or "."
-    table_history = table_history or {}
+  indent = indent or "."
+  table_history = table_history or {}
 
-    for k, v in pairs(t) do
-        local vType = type(v)
+  for k, v in pairs(t) do
+    local vType = type(v)
 
-        emit_message(log_type, indent .. "(" .. vType .. "): " .. tostring(k) .. " = " .. tostring(v))
+    emit_message(log_type, indent .. "(" .. vType .. "): " .. tostring(k) .. " = " .. tostring(v))
 
-        if (vType == "table") then
-            if (table_history[v]) then
-                emit_message(log_type, indent .. "Avoiding cycle on table...")
-            else
-                table_history[v] = true
-                emit_table(log_type, v, indent .. "  ", table_history)
-            end
-        end
+    if (vType == "table") then
+      if (table_history[v]) then
+        emit_message(log_type, indent .. "Avoiding cycle on table...")
+      else
+        table_history[v] = true
+        emit_table(log_type, v, indent .. "  ", table_history)
+      end
     end
+  end
 end
 
 function BuildMarker.dm(log_type, ...)
-    if not show_log then return end
-    for i = 1, select("#", ...) do
-        local value = select(i, ...)
-        if (type(value) == "table") then
-            emit_table(log_type, value)
-        else
-            emit_message(log_type, tostring(value))
-        end
+  if not show_log then
+    return
+  end
+  for i = 1, select("#", ...) do
+    local value = select(i, ...)
+    if (type(value) == "table") then
+      emit_table(log_type, value)
+    else
+      emit_message(log_type, tostring(value))
     end
+  end
 end
 
 function BuildMarker:is_marked(bagId, slotIndex)
-    local isMeta = false
-    local item_link = GetItemLink(bagId, slotIndex)
-    local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(item_link)
-    local item_trait = GetItemLinkTraitType(item_link)
-    if hasSet then
-        --BuildMarker.dm("Debug", item_trait)
-        --BuildMarker.dm("Debug", setName)
-    end
-    if (hasSet and is_meta_set(setName, setId)) then isMeta = true end
-    return isMeta
+  local isMeta = false
+  local item_link = GetItemLink(bagId, slotIndex)
+  local hasSet, setName, _, _, _, setId = GetItemLinkSetInfo(item_link)
+  local item_trait = GetItemLinkTraitType(item_link)
+  if hasSet then
+    --BuildMarker.dm("Debug", item_trait)
+    --BuildMarker.dm("Debug", setName)
+  end
+  if (hasSet and is_meta_set(setName, setId)) then
+    isMeta = true
+  end
+  return isMeta
 end
 
 function BuildMarker:ToggleMarker(rowControl, slot)
-    local markerControl = rowControl:GetNamedChild(BuildMarker.name)
-    local isMeta = BuildMarker:is_marked(slot.bagId, slot.slotIndex)
+  local markerControl = rowControl:GetNamedChild(BuildMarker.name)
+  local isMeta = BuildMarker:is_marked(slot.bagId, slot.slotIndex)
 
-    if (not markerControl) then
-        if not isMeta then return end
-        -- Create and initialize the marker control
-        --BuildMarker.dm("Debug", "Meta Set")
-        --BuildMarker.dm("Debug", rowControl:GetName() .. BuildMarker.name)
-        markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. BuildMarker.name, rowControl, CT_TEXTURE)
-        -- EsoUI/Art/Inventory/newItem_icon.dds
-        markerControl:SetTexture("/esoui/art/inventory/newitem_icon.dds")
-        markerControl:SetColor(0.9, 0.3, 0.2, 1)
-        markerControl:SetDimensions(34, 34)
-        markerControl:SetAnchor(LEFT, rowControl, LEFT)
-        markerControl:SetDrawTier(DT_HIGH)
+  if (not markerControl) then
+    if not isMeta then
+      return
     end
+    -- Create and initialize the marker control
+    --BuildMarker.dm("Debug", "Meta Set")
+    --BuildMarker.dm("Debug", rowControl:GetName() .. BuildMarker.name)
+    markerControl = WINDOW_MANAGER:CreateControl(rowControl:GetName() .. BuildMarker.name, rowControl, CT_TEXTURE)
+    -- EsoUI/Art/Inventory/newItem_icon.dds
+    markerControl:SetTexture("/esoui/art/inventory/newitem_icon.dds")
+    markerControl:SetColor(0.9, 0.3, 0.2, 1)
+    markerControl:SetDimensions(34, 34)
+    markerControl:SetAnchor(LEFT, rowControl, LEFT)
+    markerControl:SetDrawTier(DT_HIGH)
+  end
 
-    markerControl:SetHidden(not isMeta)
+  markerControl:SetHidden(not isMeta)
 end
 
 local function check_inventory()
-    --BuildMarker.dm("Debug", "check_inventory")
-    for _, v in pairs(PLAYER_INVENTORY.inventories) do
-        local listView = v.listView
-        if (listView and listView.dataTypes and listView.dataTypes[1]) then
-            local hookedFunctions = listView.dataTypes[1].setupCallback
+  --BuildMarker.dm("Debug", "check_inventory")
+  for _, v in pairs(PLAYER_INVENTORY.inventories) do
+    local listView = v.listView
+    if (listView and listView.dataTypes and listView.dataTypes[1]) then
+      local hookedFunctions = listView.dataTypes[1].setupCallback
 
-            listView.dataTypes[1].setupCallback = function(rowControl, slot)
-                hookedFunctions(rowControl, slot)
-                BuildMarker:ToggleMarker(rowControl, slot)
-            end
-        end
-    end
-    local backpacks = {
-        ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
-        ZO_SmithingTopLevelImprovementPanelInventoryBackpack,
-        ZO_RetraitStation_KeyboardTopLevelRetraitPanelInventoryBackpack,
-        ZO_UniversalDeconstructionTopLevel_KeyboardPanelInventoryBackpack,
-    }
-    for i = 1, #backpacks do
-      local oldCallback = backpacks[i].dataTypes[1].setupCallback
-
-      backpacks[i].dataTypes[1].setupCallback = function(rowControl, slot)
-        oldCallback(rowControl, slot)
+      listView.dataTypes[1].setupCallback = function(rowControl, slot)
+        hookedFunctions(rowControl, slot)
         BuildMarker:ToggleMarker(rowControl, slot)
       end
     end
+  end
+  local backpacks = {
+    ZO_SmithingTopLevelDeconstructionPanelInventoryBackpack,
+    ZO_SmithingTopLevelImprovementPanelInventoryBackpack,
+    ZO_RetraitStation_KeyboardTopLevelRetraitPanelInventoryBackpack,
+    ZO_UniversalDeconstructionTopLevel_KeyboardPanelInventoryBackpack,
+  }
+  for i = 1, #backpacks do
+    local oldCallback = backpacks[i].dataTypes[1].setupCallback
+
+    backpacks[i].dataTypes[1].setupCallback = function(rowControl, slot)
+      oldCallback(rowControl, slot)
+      BuildMarker:ToggleMarker(rowControl, slot)
+    end
+  end
 end
 
 local function OnAddOnLoaded(eventCode, addonName)
-    if (addonName ~= BuildMarker.name) then return end
+  if (addonName ~= BuildMarker.name) then
+    return
+  end
 
-    check_inventory()
+  check_inventory()
 
-    EVENT_MANAGER:UnregisterForEvent(BuildMarker.name, EVENT_ADD_ON_LOADED)
+  EVENT_MANAGER:UnregisterForEvent(BuildMarker.name, EVENT_ADD_ON_LOADED)
 end
 EVENT_MANAGER:RegisterForEvent(BuildMarker.name, EVENT_ADD_ON_LOADED, OnAddOnLoaded)
